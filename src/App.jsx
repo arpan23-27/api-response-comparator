@@ -1,10 +1,29 @@
 import { useState } from 'react';
 import JsonInput from './components/JsonInput';
+import compareJson from './utils/compareJson';
 
 
 function App() {
 const [responseA,  setresponseA] = useState('');
 const [responseB, setresponseB] = useState('');
+
+
+
+const handleCompare = () => {
+  try {
+    const firstJson = JSON.parse(responseA);
+    const secondJson = JSON.parse(responseB);
+
+    const changes = compareJson(firstJson, secondJson);
+
+    console.log(changes);
+  } catch (error) {
+    console.error('Invalid JSON:', error.message);
+  }
+};
+
+
+
 
   return (
    <main>
@@ -26,6 +45,13 @@ const [responseB, setresponseB] = useState('');
     value={responseB}
     onChange={setresponseB}
     />
+
+
+    <button onClick={handleCompare}>
+  Compare Responses
+</button>
+
+
    </main>
   )
 }
