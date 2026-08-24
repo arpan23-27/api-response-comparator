@@ -4,9 +4,10 @@ import compareJson from './utils/compareJson';
 
 
 function App() {
-const [responseA,  setresponseA] = useState('');
-const [responseB, setresponseB] = useState('');
-
+const [responseA,  setResponseA] = useState('');
+const [responseB, setResponseB] = useState('');
+const [changes, setChanges] = useState([]);
+const [filter, setFilter] = useState('all');
 
 
 const handleCompare = () => {
@@ -14,9 +15,11 @@ const handleCompare = () => {
     const firstJson = JSON.parse(responseA);
     const secondJson = JSON.parse(responseB);
 
-    const changes = compareJson(firstJson, secondJson);
+   const comparisonResult = compareJson(firstJson, secondJson);
 
-    console.log(changes);
+setChanges(comparisonResult);
+
+
   } catch (error) {
     console.error('Invalid JSON:', error.message);
   }
@@ -24,6 +27,10 @@ const handleCompare = () => {
 
 
 
+const filteredChanges =
+  filter === 'all'
+    ? changes
+    : changes.filter((change) => change.type === filter);
 
   return (
    <main>
@@ -37,19 +44,52 @@ const handleCompare = () => {
     <JsonInput
     label="Response A"
     value={responseA}
-    onChange={setresponseA}
+    onChange={setResponseA}
     />
 
     <JsonInput
     label="Response B"
     value={responseB}
-    onChange={setresponseB}
+    onChange={setResponseB}
     />
 
 
     <button onClick={handleCompare}>
   Compare Responses
 </button>
+
+
+
+
+<div>
+  <button onClick={() => setFilter('all')}>
+    All
+  </button>
+
+  <button onClick={() => setFilter('added')}>
+    Added
+  </button>
+
+  <button onClick={() => setFilter('removed')}>
+    Removed
+  </button>
+
+  <button onClick={() => setFilter('modified')}>
+    Modified
+  </button>
+
+  <button onClick={() => setFilter('unchanged')}>
+    Unchanged
+  </button>
+</div>
+
+
+
+{filteredChanges.map((change) => (
+  <div key={change.path}>
+    <strong>{change.path}</strong>: {change.type}
+  </div>
+))}
 
 
    </main>
