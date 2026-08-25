@@ -1,5 +1,32 @@
+function collectNestedChanges(value, path, type) {
+  const changes = [];
+
+  if (typeof value === "object" && value !== null) {
+    for (const key of Object.keys(value)) {
+      const currentPath = Array.isArray(value)
+        ? `${path}[${key}]`
+        : `${path}.${key}`;
+
+      changes.push(
+        ...collectNestedChanges(value[key], currentPath, type)
+      );
+    }
+  } else {
+    changes.push({
+      path,
+      type,
+      oldValue: type === "removed" ? value : undefined,
+      newValue: type === "added" ? value : undefined,
+    });
+  }
+
+  return changes;
+}
+
+
 function compareJson(first, second, path = '') {
   const changes = [];
+
 
   const allKeys = new Set([
     ...Object.keys(first),
@@ -21,22 +48,16 @@ function compareJson(first, second, path = '') {
     const existsInSecond = Object.prototype.hasOwnProperty.call(second, key);
 
     if (!existsInFirst) {
-      changes.push({
-        path: currentPath,
-        type: 'added',
-        oldValue: undefined,
-        newValue: second[key],
-      });
+      changes.push(
+        ...collectNestedChanges(second[key], currentPath, "added")
+      );
       continue;
     }
 
     if (!existsInSecond) {
-      changes.push({
-        path: currentPath,
-        type: 'removed',
-        oldValue: first[key],
-        newValue: undefined,
-      });
+      changes.push(
+       ...collectNestedChanges(first[key], currentPath, "removed")
+      );
       continue;
     }
 
