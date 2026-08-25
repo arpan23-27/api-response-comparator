@@ -36,10 +36,12 @@ function compareJson(first, second, path = '') {
     const secondValue = second[key];
 
     const bothAreObjects =
-      typeof firstValue === 'object' &&
-      firstValue !== null &&
-      typeof secondValue === 'object' &&
-      secondValue !== null;
+  typeof firstValue === "object" &&
+  firstValue !== null &&
+  !Array.isArray(firstValue) &&
+  typeof secondValue === "object" &&
+  secondValue !== null &&
+  !Array.isArray(secondValue);
 
     if (bothAreObjects) {
       changes.push(
