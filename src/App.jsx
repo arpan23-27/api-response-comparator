@@ -10,6 +10,31 @@ const [changes, setChanges] = useState([]);
 const [filter, setFilter] = useState('all');
 
 
+
+const sampleResponseA = {
+  id: 123,
+  name: 'John',
+  role: 'Developer',
+  active: true,
+};
+
+const sampleResponseB = {
+  id: 123,
+  name: 'John',
+  role: 'Senior Developer',
+  remote: true,
+};
+
+const handleLoadSampleData = () => {
+  setResponseA(JSON.stringify(sampleResponseA, null, 2));
+  setResponseB(JSON.stringify(sampleResponseB, null, 2));
+};
+
+
+
+
+
+
 const handleCompare = () => {
   try {
     const firstJson = JSON.parse(responseA);
@@ -52,6 +77,14 @@ const filteredChanges =
     value={responseB}
     onChange={setResponseB}
     />
+
+
+
+<button onClick={handleLoadSampleData}>
+  Load Sample Data
+</button>
+
+
 
 
     <button onClick={handleCompare}>
