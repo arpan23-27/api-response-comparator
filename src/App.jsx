@@ -11,6 +11,10 @@ function App() {
   const [error, setError] = useState("");
   const [hasCompared, setHasCompared] = useState(false);
 
+const isCompareDisabled =
+  responseA.trim() === "" || responseB.trim() === "";
+
+
   const sampleResponseA = {
     id: 123,
     name: "John",
@@ -89,7 +93,9 @@ function App() {
 
       <button onClick={handleSwapResponses}>Swap Responses</button>
 
-      <button onClick={handleCompare}>Compare Responses</button>
+      <button onClick={handleCompare} disabled={isCompareDisabled}>
+        Compare Responses
+      </button>
 
       <button onClick={handleReset}>Clear</button>
       <ComparisonSummary changes={changes} />
