@@ -67,6 +67,18 @@ const handleSwapResponses = () => {
 
 
 
+
+
+const handleReset = () => {
+  setResponseA('');
+  setResponseB('');
+  setChanges([]);
+  setError('');
+  setFilter('all');
+};
+
+
+
 const filteredChanges =
   filter === 'all'
     ? changes
@@ -108,7 +120,9 @@ const filteredChanges =
   Compare Responses
 </button>
 
-
+<button onClick={handleReset}>
+  Clear
+</button>
 <ComparisonSummary changes={changes} />
 {error && <p>{error}</p>}
 
