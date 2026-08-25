@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import JsonInput from './components/JsonInput';
 import compareJson from './utils/compareJson';
-
+import ComparisonSummary from './components/ComparisonSummary';
 
 function App() {
 const [responseA,  setResponseA] = useState('');
@@ -102,6 +102,8 @@ const filteredChanges =
   Compare Responses
 </button>
 
+
+<ComparisonSummary changes={changes} />
 {error && <p>{error}</p>}
 
 
