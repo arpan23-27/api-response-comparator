@@ -2,13 +2,15 @@ import { useState } from 'react';
 import JsonInput from './components/JsonInput';
 import compareJson from './utils/compareJson';
 import ComparisonSummary from './components/ComparisonSummary';
-
+import ChangeList from './components/ChangeList';
 function App() {
 const [responseA,  setResponseA] = useState('');
 const [responseB, setResponseB] = useState('');
 const [changes, setChanges] = useState([]);
 const [filter, setFilter] = useState('all');
 const [error, setError] = useState('');
+
+
 
 
 const sampleResponseA = {
@@ -18,12 +20,16 @@ const sampleResponseA = {
   active: true,
 };
 
+
+
 const sampleResponseB = {
   id: 123,
   name: 'John Shukla',
   role: 'Senior Developer',
   remote: true,
 };
+
+
 
 const handleLoadSampleData = () => {
   setResponseA(JSON.stringify(sampleResponseA, null, 2));
@@ -131,12 +137,7 @@ const filteredChanges =
 
 
 
-{filteredChanges.map((change) => (
-  <div key={change.path}>
-    <strong>{change.path}</strong>: {change.type}
-  </div>
-))}
-
+<ChangeList changes={filteredChanges} />
 
    </main>
   )
