@@ -51,6 +51,16 @@ const handleCompare = () => {
 };
 
 
+
+
+const handleSwapResponses = () => {
+  setResponseA(responseB);
+  setResponseB(responseA);
+};
+
+
+
+
 const filteredChanges =
   filter === 'all'
     ? changes
@@ -83,7 +93,9 @@ const filteredChanges =
   Load Sample Data
 </button>
 
-
+<button onClick={handleSwapResponses}>
+  Swap Responses
+</button>
 
 
     <button onClick={handleCompare}>
