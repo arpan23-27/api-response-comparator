@@ -1,7 +1,7 @@
-function EmptyState() {
+function EmptyState({message}) {
     return (
         <div>
-            <p>No changes to display</p>
+            <p>{message}</p>
         </div>
     );
 }
