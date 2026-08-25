@@ -1,9 +1,9 @@
 import ChangeItem from "./ChangeItem";
 import EmptyState from "./EmptyState";
 
-function ChangeList({ changes }) {
+function ChangeList({ changes , message}) {
   if (changes.length === 0) {
-    return <EmptyState />;
+    return <EmptyState message={message}/>;
   }
 
   return (
