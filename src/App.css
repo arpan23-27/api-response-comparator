@@ -182,3 +182,85 @@
     border-right-color: var(--border);
   }
 }
+
+
+
+
+.change-item {
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+}
+
+.change-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.change-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.change-values {
+  margin-top: 12px;
+}
+
+.change-values p {
+  margin: 6px 0;
+}
+
+.change-values span {
+  font-weight: 600;
+}
+
+/* Added */
+
+.change-item.added {
+  border-left: 4px solid #22c55e;
+}
+
+.change-badge.added {
+  color: #166534;
+  background: #dcfce7;
+}
+
+/* Removed */
+
+.change-item.removed {
+  border-left: 4px solid #ef4444;
+}
+
+.change-badge.removed {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+/* Modified */
+
+.change-item.modified {
+  border-left: 4px solid #f59e0b;
+}
+
+.change-badge.modified {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+/* Unchanged */
+
+.change-item.unchanged {
+  border-left: 4px solid #64748b;
+}
+
+.change-badge.unchanged {
+  color: #475569;
+  background: #f1f5f9;
+}
