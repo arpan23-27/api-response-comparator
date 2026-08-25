@@ -8,7 +8,7 @@ const [responseA,  setResponseA] = useState('');
 const [responseB, setResponseB] = useState('');
 const [changes, setChanges] = useState([]);
 const [filter, setFilter] = useState('all');
-
+const [error, setError] = useState('');
 
 
 const sampleResponseA = {
@@ -20,7 +20,7 @@ const sampleResponseA = {
 
 const sampleResponseB = {
   id: 123,
-  name: 'John',
+  name: 'John Shukla',
   role: 'Senior Developer',
   remote: true,
 };
@@ -34,22 +34,21 @@ const handleLoadSampleData = () => {
 
 
 
-
 const handleCompare = () => {
   try {
+    setError('');
+
     const firstJson = JSON.parse(responseA);
     const secondJson = JSON.parse(responseB);
 
-   const comparisonResult = compareJson(firstJson, secondJson);
+    const comparisonResult = compareJson(firstJson, secondJson);
 
-setChanges(comparisonResult);
-
-
+    setChanges(comparisonResult);
   } catch (error) {
+    setError('Please enter valid JSON in both responses.');
     console.error('Invalid JSON:', error.message);
   }
 };
-
 
 
 const filteredChanges =
@@ -91,7 +90,7 @@ const filteredChanges =
   Compare Responses
 </button>
 
-
+{error && <p>{error}</p>}
 
 
 <div>
