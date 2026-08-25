@@ -6,8 +6,16 @@ function compareJson(first, second, path = '') {
     ...Object.keys(second),
   ]);
 
+
+  
   for (const key of allKeys) {
-    const currentPath = path ? `${path}.${key}` : key;
+    const currentPath = Array.isArray(first)
+  ? `${path}[${key}]`
+  : path
+    ? `${path}.${key}`
+    : key;
+
+
 
     const existsInFirst = Object.prototype.hasOwnProperty.call(first, key);
     const existsInSecond = Object.prototype.hasOwnProperty.call(second, key);
@@ -35,6 +43,13 @@ function compareJson(first, second, path = '') {
     const firstValue = first[key];
     const secondValue = second[key];
 
+
+    const bothAreArrays =
+  Array.isArray(firstValue) &&
+  Array.isArray(secondValue);
+
+
+
     const bothAreObjects =
   typeof firstValue === "object" &&
   firstValue !== null &&
@@ -43,7 +58,7 @@ function compareJson(first, second, path = '') {
   secondValue !== null &&
   !Array.isArray(secondValue);
 
-    if (bothAreObjects) {
+    if (bothAreArrays || bothAreObjects) {
       changes.push(
         ...compareJson(firstValue, secondValue, currentPath)
       );
